@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Clock, ShoppingBag, ArrowRight } from "lucide-react";
+import { ArrowLeft, Clock, ArrowRight } from "lucide-react";
 import { getPostBySlug, blogPosts } from "@/app/data/blogPosts";
 
 const categoryColors: Record<string, string> = {
@@ -20,13 +20,19 @@ function renderMarkdown(content: string): React.ReactNode[] {
 
     if (line.startsWith("## ")) {
       elements.push(
-        <h2 key={i} className="mt-8 mb-3 font-serif text-[1.4rem] text-[#3d3456]">
+        <h2
+          key={i}
+          className="mt-8 mb-3 font-serif text-[1.4rem] text-[#3d3456]"
+        >
           {line.slice(3)}
         </h2>
       );
     } else if (line.startsWith("### ")) {
       elements.push(
-        <h3 key={i} className="mt-6 mb-2 font-serif text-[1.15rem] text-[#5c5470]">
+        <h3
+          key={i}
+          className="mt-6 mb-2 font-serif text-[1.15rem] text-[#5c5470]"
+        >
           {line.slice(4)}
         </h3>
       );
@@ -44,7 +50,10 @@ function renderMarkdown(content: string): React.ReactNode[] {
             const parts = item.split(/\*\*(.*?)\*\*/g);
 
             return (
-              <li key={j} className="flex items-start gap-2 text-[#7a7090] leading-7">
+              <li
+                key={j}
+                className="flex items-start gap-2 text-[#7a7090] leading-7"
+              >
                 <span className="mt-1 text-[#f7c5d5]">✿</span>
                 <span>
                   {parts.map((part, k) =>
@@ -99,23 +108,22 @@ function renderMarkdown(content: string): React.ReactNode[] {
 }
 
 type PageProps = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
-// 🔥 static generation (çok önemli)
 export function generateStaticParams() {
   return blogPosts.map((post) => ({
     slug: post.slug,
   }));
 }
 
-// 🔥 dynamic metadata
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const post = getPostBySlug(params.slug);
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
 
   if (!post) {
     return {
@@ -130,8 +138,9 @@ export async function generateMetadata({
   };
 }
 
-export default function BlogPostPage({ params }: PageProps) {
-  const post = getPostBySlug(params.slug);
+export default async function BlogPostPage({ params }: PageProps) {
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
 
   if (!post) {
     notFound();
@@ -146,7 +155,7 @@ export default function BlogPostPage({ params }: PageProps) {
       <div className="mx-auto max-w-3xl px-4 sm:px-6">
         <Link
           href="/blog"
-          className="mb-6 inline-flex items-center gap-1.5 text-sm text-[#b8839a] hover:gap-2.5"
+          className="mb-6 inline-flex items-center gap-1.5 text-sm text-[#b8839a] transition-all hover:gap-2.5"
         >
           <ArrowLeft size={14} />
           Back to Blog
@@ -194,18 +203,18 @@ export default function BlogPostPage({ params }: PageProps) {
                 <Link
                   href={`/blog/${relatedPost.slug}`}
                   key={relatedPost.slug}
-                  className="group overflow-hidden rounded-xl border border-[#f0e6ee] bg-white hover:shadow-sm"
+                  className="group overflow-hidden rounded-xl border border-[#f0e6ee] bg-white transition-shadow hover:shadow-sm"
                 >
                   <div className="h-32 overflow-hidden">
                     <img
                       src={relatedPost.image}
                       alt={relatedPost.title}
-                      className="h-full w-full object-cover group-hover:scale-105 transition-transform"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
 
                   <div className="p-4">
-                    <h4 className="font-serif text-[0.9rem] text-[#3d3456] group-hover:text-[#b8839a]">
+                    <h4 className="font-serif text-[0.9rem] leading-snug text-[#3d3456] transition-colors group-hover:text-[#b8839a]">
                       {relatedPost.title}
                     </h4>
 
