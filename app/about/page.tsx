@@ -4,6 +4,12 @@ import { Heart, BookOpen, Users } from "lucide-react";
 const aboutImage =
   "https://images.unsplash.com/photo-1706714134209-bb8e32070586?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800";
 
+export const metadata = {
+  title: "About",
+  description:
+    "Learn about the mission behind Mindful Moments.",
+};
+
 export default function AboutPage() {
   return (
     <div className="py-14">

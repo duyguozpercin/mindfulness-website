@@ -1,5 +1,4 @@
-"use client";
-
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -9,6 +8,12 @@ import {
   ShoppingBag,
 } from "lucide-react";
 import { blogPosts } from "@/app/data/blogPosts";
+
+export const metadata: Metadata = {
+  title: "Mindful Moments",
+  description:
+    "Practical mindfulness resources for teachers, parents, and adults. Explore articles, printable cards, and tools for a calmer and more compassionate life.",
+};
 
 const heroImage =
   "https://images.unsplash.com/photo-1764192114257-ae9ecf97eb6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1200";
@@ -68,7 +73,7 @@ const categoryColors: Record<string, string> = {
   Adults: "bg-[#d4ead4] text-[#4a7a5a]",
 };
 
-export default function Home() {
+export default function HomePage() {
   return (
     <div>
       <section className="relative flex min-h-[85vh] items-center overflow-hidden">
@@ -390,10 +395,7 @@ export default function Home() {
             delivered gently to your inbox. No spam — ever.
           </p>
 
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            className="mx-auto flex max-w-sm flex-col gap-3 sm:flex-row"
-          >
+          <form className="mx-auto flex max-w-sm flex-col gap-3 sm:flex-row">
             <input
               type="email"
               placeholder="your@email.com"

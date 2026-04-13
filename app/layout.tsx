@@ -13,8 +13,12 @@ const lora = Lora({
   variable: "--font-lora",
 });
 
-export const metadata: Metadata = {
-  title: "Mindful Moments",
+
+export const metadata = {
+  title: {
+    default: "Mindful Moments",
+    template: "%s | Mindful Moments",
+  },
   description:
     "Mindfulness and compassion resources for teachers, parents, and adults.",
 };

@@ -1,7 +1,13 @@
 import Link from "next/link";
 import { ExternalLink, Package, ShoppingBag } from "lucide-react";
-import ProductCard from "@/components/ProductCard";
+import ProductCard from "@/components/product-card";
 import { getProductsByType } from "@/app/data/products";
+
+export const metadata = {
+  title: "Physical Products",
+  description:
+    "Printed mindfulness card decks and posters for classrooms, homes, and therapy spaces. Designed for daily use.",
+};
 
 const ETSY_SHOP_URL = "https://www.etsy.com/shop/MindfulMomentsShop";
 

@@ -1,10 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Download, ExternalLink, ShoppingBag } from "lucide-react";
-import ProductCard from "@/components/ProductCard";
+import ProductCard from "@/components/product-card"
 import { getProductsByType } from "@/app/data/products";
 
 const ETSY_SHOP_URL = "https://www.etsy.com/shop/MindfulMomentsShop";
 
+export const metadata: Metadata = {
+  title: "Digital Products",
+  description:
+    "Printable mindfulness cards, affirmation posters, and downloadable resources for teachers, parents, and personal practice.",
+};
 export default function DigitalProductsPage() {
   const digitalProducts = getProductsByType("digital");
 

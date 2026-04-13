@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Clock, ShoppingBag, ArrowRight } from "lucide-react";
@@ -19,19 +20,13 @@ function renderMarkdown(content: string): React.ReactNode[] {
 
     if (line.startsWith("## ")) {
       elements.push(
-        <h2
-          key={i}
-          className="mt-8 mb-3 font-serif text-[1.4rem] text-[#3d3456]"
-        >
+        <h2 key={i} className="mt-8 mb-3 font-serif text-[1.4rem] text-[#3d3456]">
           {line.slice(3)}
         </h2>
       );
     } else if (line.startsWith("### ")) {
       elements.push(
-        <h3
-          key={i}
-          className="mt-6 mb-2 font-serif text-[1.15rem] text-[#5c5470]"
-        >
+        <h3 key={i} className="mt-6 mb-2 font-serif text-[1.15rem] text-[#5c5470]">
           {line.slice(4)}
         </h3>
       );
@@ -49,10 +44,7 @@ function renderMarkdown(content: string): React.ReactNode[] {
             const parts = item.split(/\*\*(.*?)\*\*/g);
 
             return (
-              <li
-                key={j}
-                className="flex items-start gap-2 text-[#7a7090] leading-7"
-              >
+              <li key={j} className="flex items-start gap-2 text-[#7a7090] leading-7">
                 <span className="mt-1 text-[#f7c5d5]">✿</span>
                 <span>
                   {parts.map((part, k) =>
@@ -82,9 +74,7 @@ function renderMarkdown(content: string): React.ReactNode[] {
       );
     } else if (line.startsWith("---")) {
       elements.push(<hr key={i} className="my-6 border-[#f0e6ee]" />);
-    } else if (line.trim() === "") {
-      // boş satırı geç
-    } else {
+    } else if (line.trim() !== "") {
       const parts = line.split(/\*\*(.*?)\*\*/g);
 
       elements.push(
@@ -114,6 +104,32 @@ type PageProps = {
   };
 };
 
+// 🔥 static generation (çok önemli)
+export function generateStaticParams() {
+  return blogPosts.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
+// 🔥 dynamic metadata
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const post = getPostBySlug(params.slug);
+
+  if (!post) {
+    return {
+      title: "Article",
+      description: "Mindfulness and compassion article from Mindful Moments.",
+    };
+  }
+
+  return {
+    title: post.title,
+    description: post.excerpt,
+  };
+}
+
 export default function BlogPostPage({ params }: PageProps) {
   const post = getPostBySlug(params.slug);
 
@@ -130,16 +146,14 @@ export default function BlogPostPage({ params }: PageProps) {
       <div className="mx-auto max-w-3xl px-4 sm:px-6">
         <Link
           href="/blog"
-          className="mb-6 inline-flex items-center gap-1.5 text-sm text-[#b8839a] transition-all hover:gap-2.5"
+          className="mb-6 inline-flex items-center gap-1.5 text-sm text-[#b8839a] hover:gap-2.5"
         >
           <ArrowLeft size={14} />
           Back to Blog
         </Link>
 
         <div className="mb-4 flex flex-wrap items-center gap-3">
-          <span
-            className={`rounded-full px-3 py-1 text-xs ${categoryColors[post.category]}`}
-          >
+          <span className={`rounded-full px-3 py-1 text-xs ${categoryColors[post.category]}`}>
             {post.category}
           </span>
 
@@ -167,37 +181,7 @@ export default function BlogPostPage({ params }: PageProps) {
           />
         </div>
 
-        <article className="max-w-none">
-          {renderMarkdown(post.content)}
-        </article>
-
-        <div className="mt-12 flex flex-col items-start gap-4 rounded-2xl border border-[#f0e6ee] bg-gradient-to-br from-[#fdf0f5] to-[#edf4fc] p-6 sm:flex-row sm:items-center">
-          <div className="text-3xl">🌸</div>
-
-          <div className="flex-1">
-            <h4 className="mb-1 font-serif text-[#3d3456]">
-              Love this topic?
-            </h4>
-
-            <p className="text-sm text-[#9e8aa0]">
-              Explore our mindfulness cards and posters for{" "}
-              {post.category.toLowerCase()} — available as digital downloads or
-              physical sets.
-            </p>
-          </div>
-
-          <a
-            href="https://www.etsy.com/shop/MindfulMomentsShop"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex whitespace-nowrap rounded-full bg-[#f7c5d5] px-5 py-2.5 text-sm text-[#7d4f6b] transition-colors hover:bg-[#f2b0c5]"
-          >
-            <span className="inline-flex items-center gap-2">
-              <ShoppingBag size={14} />
-              Shop on Etsy
-            </span>
-          </a>
-        </div>
+        <article>{renderMarkdown(post.content)}</article>
 
         {relatedPosts.length > 0 && (
           <div className="mt-14">
@@ -210,24 +194,23 @@ export default function BlogPostPage({ params }: PageProps) {
                 <Link
                   href={`/blog/${relatedPost.slug}`}
                   key={relatedPost.slug}
-                  className="group overflow-hidden rounded-xl border border-[#f0e6ee] bg-white transition-shadow hover:shadow-sm"
+                  className="group overflow-hidden rounded-xl border border-[#f0e6ee] bg-white hover:shadow-sm"
                 >
                   <div className="h-32 overflow-hidden">
                     <img
                       src={relatedPost.image}
                       alt={relatedPost.title}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="h-full w-full object-cover group-hover:scale-105 transition-transform"
                     />
                   </div>
 
                   <div className="p-4">
-                    <h4 className="font-serif text-[0.9rem] leading-snug text-[#3d3456] transition-colors group-hover:text-[#b8839a]">
+                    <h4 className="font-serif text-[0.9rem] text-[#3d3456] group-hover:text-[#b8839a]">
                       {relatedPost.title}
                     </h4>
 
                     <div className="mt-2 flex items-center gap-1 text-xs text-[#b8839a]">
-                      Read
-                      <ArrowRight size={11} />
+                      Read <ArrowRight size={11} />
                     </div>
                   </div>
                 </Link>
