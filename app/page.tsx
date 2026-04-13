@@ -1,6 +1,8 @@
+"use client"
+
 import Link from "next/link";
 import { ArrowRight, Heart, BookOpen, Sparkles, ShoppingBag } from "lucide-react";
-import { blogPosts } from "../data/blogPosts";
+import { blogPosts } from "@/app/data/blogPosts"
 
 const heroImage =
   "https://images.unsplash.com/photo-1764192114257-ae9ecf97eb6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1200";
