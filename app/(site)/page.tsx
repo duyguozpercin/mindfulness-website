@@ -7,7 +7,8 @@ import {
   Sparkles,
   ShoppingBag,
 } from "lucide-react";
-import { blogPosts } from "@/app/data/blogPosts";
+import { client } from "@/sanity/lib/client";
+import { featuredPostsQuery } from "@/sanity/lib/queries";
 
 export const metadata: Metadata = {
   title: "Mindful Moments",
@@ -36,7 +37,7 @@ const audiences = [
     color: "bg-[#d4e8f9]",
     textColor: "text-[#4a7396]",
     btnColor: "bg-[#c8dff5] hover:bg-[#b3d2ef] text-[#4a7396]",
-    link: "/blog?category=Teachers",
+    link: "/blog",
     emoji: "📚",
   },
   {
@@ -48,7 +49,7 @@ const audiences = [
     color: "bg-[#f7d4df]",
     textColor: "text-[#8b4d67]",
     btnColor: "bg-[#f7c5d5] hover:bg-[#f2b0c5] text-[#8b4d67]",
-    link: "/blog?category=Parents",
+    link: "/blog",
     emoji: "💕",
   },
   {
@@ -60,20 +61,36 @@ const audiences = [
     color: "bg-[#d4ead4]",
     textColor: "text-[#4a7a5a]",
     btnColor: "bg-[#c5e8c5] hover:bg-[#aed9ae] text-[#4a7a5a]",
-    link: "/blog?category=Adults",
+    link: "/blog",
     emoji: "🌿",
   },
 ];
 
-const featuredPosts = blogPosts.slice(0, 3);
-
-const categoryColors: Record<string, string> = {
-  Teachers: "bg-[#d4e8f9] text-[#4a7396]",
-  Parents: "bg-[#f7d4df] text-[#8b4d67]",
-  Adults: "bg-[#d4ead4] text-[#4a7a5a]",
+type FeaturedPost = {
+  _id: string;
+  title: string;
+  slug: string;
+  excerpt?: string;
+  publishedAt?: string;
+  mainImage?: {
+    asset?: {
+      url?: string;
+    };
+  };
 };
 
-export default function HomePage() {
+function formatDate(date?: string) {
+  if (!date) return "";
+  return new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
+export default async function HomePage() {
+  const featuredPosts: FeaturedPost[] = await client.fetch(featuredPostsQuery);
+
   return (
     <div>
       <section className="relative flex min-h-[85vh] items-center overflow-hidden">
@@ -211,44 +228,60 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {featuredPosts.map((post) => (
-              <Link
-                href={`/blog/${post.slug}`}
-                key={post.slug}
-                className="group overflow-hidden rounded-2xl border border-[#f0e6ee] bg-[#fdfaf7] transition-all duration-300 hover:shadow-md"
-              >
-                <div className="h-44 overflow-hidden">
-                  <img
-                    src={post.image}
-                    alt={post.title}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-
-                <div className="p-5">
-                  <span
-                    className={`mb-3 inline-block rounded-full px-3 py-1 text-xs ${categoryColors[post.category]}`}
-                  >
-                    {post.category}
-                  </span>
-
-                  <h3 className="mb-2 font-serif text-[1.05rem] leading-snug text-[#3d3456] transition-colors group-hover:text-[#b8839a]">
-                    {post.title}
-                  </h3>
-
-                  <p className="line-clamp-2 text-sm leading-relaxed text-[#9e8aa0]">
-                    {post.excerpt}
-                  </p>
-
-                  <div className="mt-4 flex items-center justify-between text-xs text-[#c4a8c0]">
-                    <span>{post.date}</span>
-                    <span>{post.readTime}</span>
+          {featuredPosts.length === 0 ? (
+            <div className="py-12 text-center text-[#c4a8c0]">
+              <div className="mb-3 text-4xl">🌸</div>
+              <p>No articles published yet.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+              {featuredPosts.map((post) => (
+                <Link
+                  href={`/blog/${post.slug}`}
+                  key={post._id}
+                  className="group overflow-hidden rounded-2xl border border-[#f0e6ee] bg-[#fdfaf7] transition-all duration-300 hover:shadow-md"
+                >
+                  <div className="h-44 overflow-hidden bg-[#f7f1f5]">
+                    {post.mainImage?.asset?.url ? (
+                      <img
+                        src={post.mainImage.asset.url}
+                        alt={post.title}
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="flex h-full items-center justify-center text-4xl">
+                        🌸
+                      </div>
+                    )}
                   </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+
+                  <div className="p-5">
+                    <span className="mb-3 inline-block rounded-full bg-[#f4eff7] px-3 py-1 text-xs text-[#9e8aa0]">
+                      Article
+                    </span>
+
+                    <h3 className="mb-2 font-serif text-[1.05rem] leading-snug text-[#3d3456] transition-colors group-hover:text-[#b8839a]">
+                      {post.title}
+                    </h3>
+
+                    {post.excerpt && (
+                      <p className="line-clamp-2 text-sm leading-relaxed text-[#9e8aa0]">
+                        {post.excerpt}
+                      </p>
+                    )}
+
+                    <div className="mt-4 flex items-center justify-between text-xs text-[#c4a8c0]">
+                      <span>{formatDate(post.publishedAt)}</span>
+                      <span className="inline-flex items-center gap-1 text-[#b8839a]">
+                        Read
+                        <ArrowRight size={12} />
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
 
           <div className="mt-8 text-center sm:hidden">
             <Link
