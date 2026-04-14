@@ -37,7 +37,7 @@ const audiences = [
     color: "bg-[#d4e8f9]",
     textColor: "text-[#4a7396]",
     btnColor: "bg-[#c8dff5] hover:bg-[#b3d2ef] text-[#4a7396]",
-    link: "/blog",
+    link: "/blog?category=teachers",
     emoji: "📚",
   },
   {
@@ -49,7 +49,7 @@ const audiences = [
     color: "bg-[#f7d4df]",
     textColor: "text-[#8b4d67]",
     btnColor: "bg-[#f7c5d5] hover:bg-[#f2b0c5] text-[#8b4d67]",
-    link: "/blog",
+    link: "/blog?category=parents",
     emoji: "💕",
   },
   {
@@ -61,7 +61,7 @@ const audiences = [
     color: "bg-[#d4ead4]",
     textColor: "text-[#4a7a5a]",
     btnColor: "bg-[#c5e8c5] hover:bg-[#aed9ae] text-[#4a7a5a]",
-    link: "/blog",
+    link: "/blog?category=adults",
     emoji: "🌿",
   },
 ];
@@ -77,6 +77,11 @@ type FeaturedPost = {
       url?: string;
     };
   };
+  categories?: {
+    _id: string;
+    title: string;
+    slug: string;
+  }[];
 };
 
 function formatDate(date?: string) {
@@ -257,9 +262,8 @@ export default async function HomePage() {
 
                   <div className="p-5">
                     <span className="mb-3 inline-block rounded-full bg-[#f4eff7] px-3 py-1 text-xs text-[#9e8aa0]">
-                      Article
+                      {post.categories?.[0]?.title || "Uncategorized"}
                     </span>
-
                     <h3 className="mb-2 font-serif text-[1.05rem] leading-snug text-[#3d3456] transition-colors group-hover:text-[#b8839a]">
                       {post.title}
                     </h3>

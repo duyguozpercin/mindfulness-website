@@ -1,7 +1,5 @@
 import { groq } from "next-sanity";
 
-
-
 export const featuredPostsQuery = groq`
   *[_type == "post"] 
   | order(publishedAt desc, _createdAt desc)[0...3] {
@@ -14,6 +12,11 @@ export const featuredPostsQuery = groq`
       asset->{
         url
       }
+    },
+    categories[]->{
+      _id,
+      title,
+      "slug": slug.current
     }
   }
 `;
@@ -29,6 +32,11 @@ export const postsQuery = groq`
       asset->{
         url
       }
+    },
+    categories[]->{
+      _id,
+      title,
+      "slug": slug.current
     }
   }
 `;
@@ -48,6 +56,11 @@ export const postBySlugQuery = groq`
     "slug": slug.current,
     author->{
       name
+    },
+    categories[]->{
+      _id,
+      title,
+      "slug": slug.current
     }
   }
 `;
