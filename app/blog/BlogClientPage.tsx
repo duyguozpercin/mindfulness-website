@@ -145,11 +145,10 @@ export default function BlogClientPage({
             <button
               type="button"
               onClick={() => handleCategoryChange("all")}
-              className={`rounded-full px-5 py-2.5 text-sm transition-colors ${
-                activeCategory === "all"
+              className={`rounded-full px-5 py-2.5 text-sm transition-colors ${activeCategory === "all"
                   ? "bg-[#5c5470] text-white"
                   : "bg-[#f4eff7] text-[#9e8aa0] hover:bg-[#eee5f5]"
-              }`}
+                }`}
             >
               All Posts
             </button>
@@ -157,11 +156,10 @@ export default function BlogClientPage({
             <button
               type="button"
               onClick={() => handleCategoryChange("teachers")}
-              className={`rounded-full px-5 py-2.5 text-sm transition-colors ${
-                activeCategory === "teachers"
+              className={`rounded-full px-5 py-2.5 text-sm transition-colors ${activeCategory === "teachers"
                   ? "bg-[#d4e8f9] text-[#4a7396]"
                   : "bg-[#f4eff7] text-[#9e8aa0] hover:bg-[#eee5f5]"
-              }`}
+                }`}
             >
               📚 Teachers
             </button>
@@ -169,11 +167,10 @@ export default function BlogClientPage({
             <button
               type="button"
               onClick={() => handleCategoryChange("parents")}
-              className={`rounded-full px-5 py-2.5 text-sm transition-colors ${
-                activeCategory === "parents"
+              className={`rounded-full px-5 py-2.5 text-sm transition-colors ${activeCategory === "parents"
                   ? "bg-[#f7d4df] text-[#8b4d67]"
                   : "bg-[#f4eff7] text-[#9e8aa0] hover:bg-[#eee5f5]"
-              }`}
+                }`}
             >
               💕 Parents
             </button>
@@ -181,11 +178,10 @@ export default function BlogClientPage({
             <button
               type="button"
               onClick={() => handleCategoryChange("adults")}
-              className={`rounded-full px-5 py-2.5 text-sm transition-colors ${
-                activeCategory === "adults"
+              className={`rounded-full px-5 py-2.5 text-sm transition-colors ${activeCategory === "adults"
                   ? "bg-[#d4ead4] text-[#4a7a5a]"
                   : "bg-[#f4eff7] text-[#9e8aa0] hover:bg-[#eee5f5]"
-              }`}
+                }`}
             >
               🌿 Adults
             </button>
@@ -233,7 +229,7 @@ export default function BlogClientPage({
 
                       <span className="inline-flex items-center gap-1 text-xs text-[#c4a8c0]">
                         <Clock size={12} />
-                        5 min read
+                        {post.readTime || "5 min read"}
                       </span>
                     </div>
 

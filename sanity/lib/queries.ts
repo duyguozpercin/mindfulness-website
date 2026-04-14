@@ -7,6 +7,7 @@ export const featuredPostsQuery = groq`
     title,
     "slug": slug.current,
     excerpt,
+    readTime,
     publishedAt,
     mainImage{
       asset->{
@@ -27,6 +28,7 @@ export const postsQuery = groq`
     title,
     "slug": slug.current,
     excerpt,
+    readTime,
     publishedAt,
     mainImage{
       asset->{
@@ -46,6 +48,7 @@ export const postBySlugQuery = groq`
     _id,
     title,
     excerpt,
+    readTime,
     publishedAt,
     body,
     mainImage{

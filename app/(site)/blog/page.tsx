@@ -14,6 +14,7 @@ export type SanityPost = {
   title: string;
   slug: string;
   excerpt?: string;
+  readTime?: string;
   publishedAt?: string;
   mainImage?: {
     asset?: {

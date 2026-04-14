@@ -13,7 +13,7 @@ export interface Product {
   emoji: string;
 }
 
-export const ETSY_SHOP_URL = "https://www.etsy.com/shop/MindfulMomentsShop";
+export const ETSY_SHOP_URL = "https://www.etsy.com/shop/LotusCreativeTR";
 
 export const productColors: Record<ProductColor, string> = {
   pink: "bg-[#f7c5d5] hover:bg-[#f2b0c5] text-[#7d4f6b]",

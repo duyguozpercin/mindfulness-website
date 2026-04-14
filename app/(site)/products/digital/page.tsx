@@ -4,7 +4,7 @@ import { Download, ExternalLink, ShoppingBag } from "lucide-react";
 import ProductCard from "@/components/product-card"
 import { getProductsByType } from "@/app/data/products";
 
-const ETSY_SHOP_URL = "https://www.etsy.com/shop/MindfulMomentsShop";
+const ETSY_SHOP_URL = "https://www.etsy.com/shop/LotusCreativeTR";
 
 export const metadata: Metadata = {
   title: "Digital Products",

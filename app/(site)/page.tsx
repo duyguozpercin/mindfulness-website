@@ -71,6 +71,7 @@ type FeaturedPost = {
   title: string;
   slug: string;
   excerpt?: string;
+  readTime?: string;
   publishedAt?: string;
   mainImage?: {
     asset?: {
@@ -91,6 +92,19 @@ function formatDate(date?: string) {
     month: "long",
     day: "numeric",
   });
+}
+
+function getCategoryClasses(category?: string) {
+  switch (category) {
+    case "Teachers":
+      return "bg-[#d4e8f9] text-[#4a7396]";
+    case "Parents":
+      return "bg-[#f7d4df] text-[#8b4d67]";
+    case "Adults":
+      return "bg-[#d4ead4] text-[#4a7a5a]";
+    default:
+      return "bg-[#f4eff7] text-[#9e8aa0]";
+  }
 }
 
 export default async function HomePage() {
@@ -132,7 +146,7 @@ export default async function HomePage() {
               </Link>
 
               <a
-                href="https://www.etsy.com/shop/MindfulMomentsShop"
+                href="https://www.etsy.com/shop/LotusCreativeTR"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full bg-[#f7c5d5] px-6 py-3 text-[#7d4f6b] transition-colors hover:bg-[#f2b0c5]"
@@ -240,50 +254,58 @@ export default async function HomePage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              {featuredPosts.map((post) => (
-                <Link
-                  href={`/blog/${post.slug}`}
-                  key={post._id}
-                  className="group overflow-hidden rounded-2xl border border-[#f0e6ee] bg-[#fdfaf7] transition-all duration-300 hover:shadow-md"
-                >
-                  <div className="h-44 overflow-hidden bg-[#f7f1f5]">
-                    {post.mainImage?.asset?.url ? (
-                      <img
-                        src={post.mainImage.asset.url}
-                        alt={post.title}
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    ) : (
-                      <div className="flex h-full items-center justify-center text-4xl">
-                        🌸
-                      </div>
-                    )}
-                  </div>
+              {featuredPosts.map((post) => {
+                const categoryTitle = post.categories?.[0]?.title;
+                const categoryClass = getCategoryClasses(categoryTitle);
 
-                  <div className="p-5">
-                    <span className="mb-3 inline-block rounded-full bg-[#f4eff7] px-3 py-1 text-xs text-[#9e8aa0]">
-                      {post.categories?.[0]?.title || "Uncategorized"}
-                    </span>
-                    <h3 className="mb-2 font-serif text-[1.05rem] leading-snug text-[#3d3456] transition-colors group-hover:text-[#b8839a]">
-                      {post.title}
-                    </h3>
-
-                    {post.excerpt && (
-                      <p className="line-clamp-2 text-sm leading-relaxed text-[#9e8aa0]">
-                        {post.excerpt}
-                      </p>
-                    )}
-
-                    <div className="mt-4 flex items-center justify-between text-xs text-[#c4a8c0]">
-                      <span>{formatDate(post.publishedAt)}</span>
-                      <span className="inline-flex items-center gap-1 text-[#b8839a]">
-                        Read
-                        <ArrowRight size={12} />
-                      </span>
+                return (
+                  <Link
+                    href={`/blog/${post.slug}`}
+                    key={post._id}
+                    className="group overflow-hidden rounded-2xl border border-[#f0e6ee] bg-[#fdfaf7] transition-all duration-300 hover:shadow-md"
+                  >
+                    <div className="h-44 overflow-hidden bg-[#f7f1f5]">
+                      {post.mainImage?.asset?.url ? (
+                        <img
+                          src={post.mainImage.asset.url}
+                          alt={post.title}
+                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      ) : (
+                        <div className="flex h-full items-center justify-center text-4xl">
+                          🌸
+                        </div>
+                      )}
                     </div>
-                  </div>
-                </Link>
-              ))}
+
+                    <div className="p-5">
+                      <span
+                        className={`mb-3 inline-block rounded-full px-3 py-1 text-xs ${categoryClass}`}
+                      >
+                        {categoryTitle || "Uncategorized"}
+                      </span>
+
+                      <h3 className="mb-2 font-serif text-[1.05rem] leading-snug text-[#3d3456] transition-colors group-hover:text-[#b8839a]">
+                        {post.title}
+                      </h3>
+
+                      {post.excerpt && (
+                        <p className="line-clamp-2 text-sm leading-relaxed text-[#9e8aa0]">
+                          {post.excerpt}
+                        </p>
+                      )}
+
+                      <div className="mt-4 flex items-center justify-between text-xs text-[#c4a8c0]">
+                        <span>{formatDate(post.publishedAt)}</span>
+                        <span className="inline-flex items-center gap-1 text-[#b8839a]">
+                          Read
+                          <ArrowRight size={12} />
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
           )}
 
@@ -350,7 +372,7 @@ export default async function HomePage() {
 
               <div className="mt-6">
                 <a
-                  href="https://www.etsy.com/shop/MindfulMomentsShop"
+                  href="https://www.etsy.com/shop/LotusCreativeTR"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-full bg-[#f7c5d5] px-6 py-3 text-[#7d4f6b] transition-colors hover:bg-[#f2b0c5]"

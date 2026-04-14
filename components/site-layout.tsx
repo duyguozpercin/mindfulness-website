@@ -123,7 +123,7 @@ export default function SiteLayout({
                     <div className="mx-4 my-1 border-t border-[#f0e6ee]" />
 
                     <a
-                      href="https://www.etsy.com/shop/MindfulMomentsShop"
+                      href="https://www.etsy.com/shop/LotusCreativeTR"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 px-4 py-2.5 text-sm text-[#b8839a] transition-colors hover:bg-[#fdf0f5]"
@@ -143,7 +143,7 @@ export default function SiteLayout({
               </Link>
 
               <a
-                href="https://www.etsy.com/shop/MindfulMomentsShop"
+                href="https://www.etsy.com/shop/LotusCreativeTR"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-1.5 rounded-full bg-[#f7c5d5] px-4 py-2 text-sm text-[#7d4f6b] transition-colors duration-200 hover:bg-[#f2b0c5]"
@@ -199,7 +199,7 @@ export default function SiteLayout({
             </Link>
 
             <a
-              href="https://www.etsy.com/shop/MindfulMomentsShop"
+              href="https://www.etsy.com/shop/LotusCreativeTR"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-[#b8839a] transition-colors hover:bg-[#fdf0f5]"
@@ -270,7 +270,7 @@ export default function SiteLayout({
                 Find all our mindfulness cards and posters on Etsy.
               </p>
               <a
-                href="https://www.etsy.com/shop/MindfulMomentsShop"
+                href="https://www.etsy.com/shop/LotusCreativeTR"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full bg-[#f7c5d5] px-4 py-2 text-sm text-[#7d4f6b] transition-colors hover:bg-[#f2b0c5]"

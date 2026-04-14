@@ -204,7 +204,7 @@ export default function AboutPage() {
           </Link>
 
           <a
-            href="https://www.etsy.com/shop/MindfulMomentsShop"
+            href="https://www.etsy.com/shop/LotusCreativeTR"
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-2xl bg-[#f7c5d5] px-8 py-4 text-[#7d4f6b] transition-colors hover:bg-[#f2b0c5]"

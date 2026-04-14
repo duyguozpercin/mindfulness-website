@@ -17,6 +17,7 @@ type SanityPost = {
   title: string;
   slug: string;
   excerpt?: string;
+  readTime?: string;
   publishedAt?: string;
   body?: any[];
   mainImage?: {

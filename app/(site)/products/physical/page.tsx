@@ -9,7 +9,7 @@ export const metadata = {
     "Printed mindfulness card decks and posters for classrooms, homes, and therapy spaces. Designed for daily use.",
 };
 
-const ETSY_SHOP_URL = "https://www.etsy.com/shop/MindfulMomentsShop";
+const ETSY_SHOP_URL = "https://www.etsy.com/shop/LotusCreativeTR";
 
 export default function PhysicalProductsPage() {
   const physicalProducts = getProductsByType("physical");
