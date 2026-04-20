@@ -1,6 +1,25 @@
 import { ShoppingBag } from "lucide-react";
-import type { Product } from "@/app/data/products";
-import { productColors } from "@/app/data/products";
+
+export type Product = {
+  _id: string;
+  name: string;
+  slug: string;
+  productType: "digital" | "physical";
+  audience: string;
+  description: string;
+  price: string;
+  etsyUrl: string;
+  emoji: string;
+  color: "pink" | "blue" | "green" | "yellow";
+  sortOrder?: number;
+};
+
+const productColors: Record<Product["color"], string> = {
+  pink: "bg-[#e9b7cc] hover:bg-[#de9fba] text-[#7d4f6b]",
+  blue: "bg-[#b9d7f3] hover:bg-[#a4caed] text-[#4a7396]",
+  green: "bg-[#bfe3bf] hover:bg-[#abd7ab] text-[#4a7a5a]",
+  yellow: "bg-[#efd77a] hover:bg-[#e7cb5f] text-[#7a6228]",
+};
 
 export default function ProductCard({ product }: { product: Product }) {
   const colors = productColors[product.color];
@@ -10,7 +29,7 @@ export default function ProductCard({ product }: { product: Product }) {
       <div className="mb-4 flex items-start justify-between">
         <div className="text-3xl">{product.emoji}</div>
 
-        <span className="rounded-full px-2.5 py-1 text-xs bg-[#f4eff7] text-[#9e8aa0]">
+        <span className="rounded-full bg-[#f4eff7] px-2.5 py-1 text-xs text-[#9e8aa0]">
           {product.audience}
         </span>
       </div>

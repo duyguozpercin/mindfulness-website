@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { ExternalLink, Package, ShoppingBag } from "lucide-react";
-import ProductCard from "@/components/product-card";
-import { getProductsByType } from "@/app/data/products";
+import ProductCard, { type Product } from "@/components/product-card";
+import { client } from "@/sanity/lib/client";
+import { physicalProductsQuery } from "@/sanity/lib/queries";
 
 export const metadata = {
   title: "Physical Products",
@@ -9,10 +10,10 @@ export const metadata = {
     "Printed mindfulness card decks and posters for classrooms, homes, and therapy spaces. Designed for daily use.",
 };
 
-const ETSY_SHOP_URL = "https://www.etsy.com/shop/MindfulMomentsShop";
+const ETSY_SHOP_URL = "https://www.etsy.com/shop/LotusCreativeTR";
 
-export default function PhysicalProductsPage() {
-  const physicalProducts = getProductsByType("physical");
+export default async function PhysicalProductsPage() {
+  const physicalProducts: Product[] = await client.fetch(physicalProductsQuery);
 
   return (
     <div className="py-14">
@@ -74,11 +75,18 @@ export default function PhysicalProductsPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {physicalProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        {physicalProducts.length === 0 ? (
+          <div className="py-16 text-center text-[#c4a8c0]">
+            <div className="mb-3 text-4xl">🌸</div>
+            <p>No physical products added yet.</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {physicalProducts.map((product) => (
+              <ProductCard key={product._id} product={product} />
+            ))}
+          </div>
+        )}
 
         <div className="mt-14 rounded-3xl border border-[#f0e6ee] bg-gradient-to-r from-[#fdf0f5] via-[#f5edfb] to-[#edf4fc] p-8 text-center sm:p-10">
           <div className="mb-4 text-4xl">🛍️</div>

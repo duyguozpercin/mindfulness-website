@@ -7,7 +7,7 @@ const aboutImage =
 export const metadata = {
   title: "About",
   description:
-    "Learn about the mission behind Mindful Moments.",
+    "Learn about the mission behind Mindful Lotus.",
 };
 
 export default function AboutPage() {
@@ -30,7 +30,7 @@ export default function AboutPage() {
             </p>
 
             <p className="mb-4 text-[#7a7090] leading-8">
-              Mindful Moments was born from a deep belief: that the most
+              Mindful Lotus was born from a deep belief: that the most
               powerful thing we can offer children — and ourselves — is the
               ability to pause, breathe, and respond rather than react. That
               kindness toward ourselves and others isn't a luxury — it's a
@@ -204,7 +204,7 @@ export default function AboutPage() {
           </Link>
 
           <a
-            href="https://www.etsy.com/shop/MindfulMomentsShop"
+            href="https://www.etsy.com/shop/LotusCreativeTR"
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-2xl bg-[#f7c5d5] px-8 py-4 text-[#7d4f6b] transition-colors hover:bg-[#f2b0c5]"
