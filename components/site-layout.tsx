@@ -69,7 +69,7 @@ export default function SiteLayout({
                 🌸
               </div>
               <span className="font-serif text-lg tracking-wide text-[#5c5470]">
-                Mindful Moments
+                Mindful Lotus
               </span>
             </Link>
 
@@ -222,7 +222,7 @@ export default function SiteLayout({
                   🌸
                 </div>
                 <span className="font-serif text-[#5c5470]">
-                  Mindful Moments
+                  Mindful Lotus
                 </span>
               </div>
 
@@ -282,7 +282,7 @@ export default function SiteLayout({
           </div>
 
           <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-[#f0e6ee] pt-6 text-xs text-[#c4a8c0] sm:flex-row">
-            <p>© 2026 Mindful Moments. Made with 🌸 and intention.</p>
+            <p>© 2026 Mindful Lotus. Made with 🌸 and intention.</p>
             <p>All content is for educational purposes.</p>
           </div>
         </div>

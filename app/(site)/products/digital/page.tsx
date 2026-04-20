@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Download, ExternalLink, ShoppingBag } from "lucide-react";
-import ProductCard from "@/components/product-card"
-import { getProductsByType } from "@/app/data/products";
+import ProductCard, { type Product } from "@/components/product-card";
+import { client } from "@/sanity/lib/client";
+import { digitalProductsQuery } from "@/sanity/lib/queries";
 
 const ETSY_SHOP_URL = "https://www.etsy.com/shop/LotusCreativeTR";
 
@@ -11,8 +12,9 @@ export const metadata: Metadata = {
   description:
     "Printable mindfulness cards, affirmation posters, and downloadable resources for teachers, parents, and personal practice.",
 };
-export default function DigitalProductsPage() {
-  const digitalProducts = getProductsByType("digital");
+
+export default async function DigitalProductsPage() {
+  const digitalProducts: Product[] = await client.fetch(digitalProductsQuery);
 
   return (
     <div className="py-14">
@@ -75,11 +77,18 @@ export default function DigitalProductsPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {digitalProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        {digitalProducts.length === 0 ? (
+          <div className="py-16 text-center text-[#c4a8c0]">
+            <div className="mb-3 text-4xl">🌸</div>
+            <p>No digital products added yet.</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {digitalProducts.map((product) => (
+              <ProductCard key={product._id} product={product} />
+            ))}
+          </div>
+        )}
 
         <div className="mt-14 rounded-3xl border border-[#f0e6ee] bg-gradient-to-r from-[#fdf0f5] via-[#f5edfb] to-[#edf4fc] p-8 text-center sm:p-10">
           <div className="mb-4 text-4xl">🛍️</div>

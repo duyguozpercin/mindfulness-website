@@ -11,7 +11,7 @@ import { client } from "@/sanity/lib/client";
 import { featuredPostsQuery } from "@/sanity/lib/queries";
 
 export const metadata: Metadata = {
-  title: "Mindful Moments",
+  title: "Mindful Lotus",
   description:
     "Practical mindfulness resources for teachers, parents, and adults. Explore articles, printable cards, and tools for a calmer and more compassionate life.",
 };

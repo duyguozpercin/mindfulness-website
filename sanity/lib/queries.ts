@@ -67,3 +67,35 @@ export const postBySlugQuery = groq`
     }
   }
 `;
+
+export const digitalProductsQuery = groq`
+  *[_type == "product" && productType == "digital"] | order(sortOrder asc, _createdAt desc) {
+    _id,
+    name,
+    "slug": slug.current,
+    productType,
+    audience,
+    description,
+    price,
+    etsyUrl,
+    emoji,
+    color,
+    sortOrder
+  }
+`;
+
+export const physicalProductsQuery = groq`
+  *[_type == "product" && productType == "physical"] | order(sortOrder asc, _createdAt desc) {
+    _id,
+    name,
+    "slug": slug.current,
+    productType,
+    audience,
+    description,
+    price,
+    etsyUrl,
+    emoji,
+    color,
+    sortOrder
+  }
+`;

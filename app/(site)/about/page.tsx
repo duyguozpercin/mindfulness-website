@@ -7,7 +7,7 @@ const aboutImage =
 export const metadata = {
   title: "About",
   description:
-    "Learn about the mission behind Mindful Moments.",
+    "Learn about the mission behind Mindful Lotus.",
 };
 
 export default function AboutPage() {
@@ -30,7 +30,7 @@ export default function AboutPage() {
             </p>
 
             <p className="mb-4 text-[#7a7090] leading-8">
-              Mindful Moments was born from a deep belief: that the most
+              Mindful Lotus was born from a deep belief: that the most
               powerful thing we can offer children — and ourselves — is the
               ability to pause, breathe, and respond rather than react. That
               kindness toward ourselves and others isn't a luxury — it's a

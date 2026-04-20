@@ -14,8 +14,8 @@ const lora = Lora({
 
 export const metadata: Metadata = {
   title: {
-    default: "Mindful Moments",
-    template: "%s | Mindful Moments",
+    default: "Mindful Lotus",
+    template: "%s | Mindful Lotus",
   },
   description:
     "Mindfulness and compassion resources for teachers, parents, and adults.",

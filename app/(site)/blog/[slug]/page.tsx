@@ -56,13 +56,13 @@ export async function generateMetadata({
   if (!post) {
     return {
       title: "Article",
-      description: "Mindfulness and compassion article from Mindful Moments.",
+      description: "Mindfulness and compassion article from Mindful Lotus.",
     };
   }
 
   return {
     title: post.title,
-    description: post.excerpt || "Mindfulness article from Mindful Moments.",
+    description: post.excerpt || "Mindfulness article from Mindful Lotus.",
   };
 }
 
